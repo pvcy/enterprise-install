@@ -1,0 +1,85 @@
+USER-SUPPLIED VALUES:
+alertmanager:
+  enabled: true
+  ingress:
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt-production"
+    enabled: true
+    hosts:
+    - alertmanager.pvcy.customer.com
+    ingressClassName: nginx
+    pathType: ImplementationSpecific
+    tls:
+    - hosts:
+      - alertmanager.pvcy.customer.com
+      secretName: alertmanager-cert
+commonLabels:
+  pvcy: "true"
+coreDns:
+  enabled: true
+grafana:
+  additionalDataSources:
+  - access: proxy
+    basicAuth: false
+    editable: true
+    name: Loki
+    type: loki
+    url: http://loki.loki.svc.cluster.local:3100
+  adminPassword: GRAFANA_PASSWORD
+  enabled: true
+  persistence:
+    enabled: true
+    size: "8Gi"
+  grafana.ini:
+    analytics:
+      check_for_updates: true
+    grafana_net:
+      url: https://grafana.net
+    log:
+      mode: console
+    paths:
+      data: /var/lib/grafana/
+      logs: /var/log/grafana
+      plugins: /var/lib/grafana/plugins
+      provisioning: /etc/grafana/provisioning
+    server:
+      domain: grafana.pvcy.customer.com
+      root_url: https://grafana.pvcy.customer.com/
+  ingress:
+    annotations:
+      kubernetes.io/tls-acme: "true"
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt-production"
+    enabled: true
+    hosts:
+    - grafana.pvcy.customer.com
+    ingressClassName: nginx
+    path: /
+    tls:
+    - hosts:
+      - grafana.pvcy.customer.com
+      secretName: grafana-cert
+kubeApiServer:
+  enabled: true
+kubeControllerManager:
+  enabled: true
+kubeDns:
+  enabled: false
+kubeEtcd:
+  enabled: true
+kubeProxy:
+  enabled: true
+kubeScheduler:
+  enabled: true
+kubeStateMetrics:
+  enabled: true
+kubelet:
+  enabled: true
+nodeExporter:
+  enabled: true
+prometheus:
+  enabled: true
+prometheusOperator:
+  enabled: true
