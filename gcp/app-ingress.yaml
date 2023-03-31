@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -12,9 +12,12 @@ spec:
     - app.pvcy.customer.com
     secretName: analyzer-app-secret
   rules:
-  - host: app.pvcy.customer.com
-    http:
-      paths:
-      - backend:
-          serviceName: analyzer-app-service
-          servicePort: 80
+    - host: app.pvcy.customer.com
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: analyzer-app-service
+                port:
+                  number: 80

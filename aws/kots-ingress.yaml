@@ -15,8 +15,7 @@ spec:
   - host: kotsadm.pvcy.customer.com
     http:
       paths:
-        - path: /*
-          pathType: ImplementationSpecific
+        - pathType: ImplementationSpecific
           backend:
             service:
               name: kotsadm
