@@ -15,8 +15,7 @@ spec:
     - host: app.pvcy.customer.com
       http:
         paths:
-          - path: /*
-            pathType: ImplementationSpecific
+          - pathType: ImplementationSpecific
             backend:
               service:
                 name: analyzer-app-service

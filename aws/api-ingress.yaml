@@ -15,8 +15,7 @@ spec:
     - host: api.pvcy.customer.com
       http:
         paths:
-          - path: /*
-            pathType: ImplementationSpecific
+          - pathType: ImplementationSpecific
             backend:
               service:
                 name: nginx-api-service

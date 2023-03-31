@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -12,10 +12,12 @@ spec:
     - api.pvcy.customer.com
     secretName: nginx-api-secret
   rules:
-  - host: api.pvcy.customer.com
-    http:
-      paths:
-      - backend:
-          serviceName: nginx-api-service
-          servicePort: 80
-
+    - host: api.pvcy.customer.com
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nginx-api-service
+                port:
+                  number: 80
