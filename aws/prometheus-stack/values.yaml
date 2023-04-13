@@ -26,7 +26,7 @@ grafana:
     name: Loki
     type: loki
     url: http://loki.loki.svc.cluster.local:3100
-  adminPassword: grafana_45xxxx1
+  adminPassword: GRAFANA_PASSWORD
   enabled: true
   persistence:
     enabled: true
