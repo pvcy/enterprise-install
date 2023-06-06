@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-worker
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: celery-worker
+          resources:
+            requests:
+              cpu: "4"
+              memory: "44Gi"
+            limits:
+              cpu: "4"
+              memory: "44Gi"
+          command:
+          - celery
+          - -A
+          - privacy_api.tasks.celery_app.celery
+          - worker
+          - --concurrency=1
+          volumeMounts:
+          - mountPath: /data
+            name: data
+            subPath: data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data
