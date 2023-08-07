@@ -18,6 +18,6 @@ spec:
           - pathType: ImplementationSpecific
             backend:
               service:
-                name: nginx-api-service
+                name: nginx-privacy-api
                 port:
                   number: 80
