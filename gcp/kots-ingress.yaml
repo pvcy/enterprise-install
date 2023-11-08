@@ -2,16 +2,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
  annotations:
-   kubernetes.io/ingress.class: "nginx"
    cert-manager.io/cluster-issuer: "letsencrypt-production"
  name: kots-ingress
  namespace: pvcy
 spec:
- tls:
- - hosts:
-   - kotsadm.pvcy.customer.com
-   secretName: kotsadm-app-secret
- rules:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - kotsadm.pvcy.customer.com
+    secretName: kotsadm-app-secret
+  rules:
   - host: kotsadm.pvcy.customer.com
     http:
       paths:
