@@ -12,6 +12,6 @@ module "iamserviceaccounts" {
 }
 
 module "elastic-file-system" {
-  source = "./modules/elastic-file-system"
+  source           = "./modules/elastic-file-system"
   eks_cluster_name = var.cluster_name
 }

@@ -36,7 +36,7 @@ variable "cert_manager_sa" {
 
 variable "dns_zone_name" {
   description = "Subdomain to be managed by the DNS Zone"
-  type = string
+  type        = string
 }
 
 variable "ebs_csi_controller_sa" {
@@ -65,7 +65,7 @@ variable "efs_csi_controller_sa" {
 
 variable "eks_cluster_name" {
   description = "Name of the EKS cluster"
-  type = string
+  type        = string
 }
 
 variable "external_dns_sa" {
@@ -82,7 +82,7 @@ variable "external_dns_sa" {
 
 variable "oidc_provider_url" {
   description = "URL of the OpenID Connect (OIDC) Provider for the EKS cluster"
-  type = string
+  type        = string
 }
 
 
@@ -99,5 +99,5 @@ variable "postgres_sa" {
 }
 variable "s3_bucket" {
   description = "AWS S3 bucket to hold backups of the application database"
-  type = string
+  type        = string
 }
