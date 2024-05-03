@@ -1,0 +1,9 @@
+domainFilters:
+  - 'pvcy.customer.com' # update
+extraArgs:
+  - --google-project=customer-project # update
+  - --google-zone-visibility=public #update
+provider: google
+serviceMonitor:
+  enabled: true # for Prometheus metric collection
+txtOwnerId: privacy-dynamics # update

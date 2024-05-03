@@ -1,0 +1,13 @@
+controller:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true # for Prometheus metric collection
+  service:
+    annotations: # configure Elastic Load Balancer
+      service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-type: external
+rbac:
+  create: true

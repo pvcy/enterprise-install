@@ -1,0 +1,11 @@
+domainFilters:
+  - 'pvcy.customer.com' # use your subdomain here
+extraArgs:
+  - --aws-zone-type=public
+provider: aws
+serviceAccount:
+  create: false # use the IRSA Service Account previously created
+  name: external-dns
+serviceMonitor:
+  enabled: true # for Prometheus metric collection
+txtOwnerId: pvcy-external-dns # this can be any string

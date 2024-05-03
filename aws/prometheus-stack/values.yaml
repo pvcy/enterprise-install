@@ -1,23 +1,9 @@
-USER-SUPPLIED VALUES:
 alertmanager:
   enabled: true
-  ingress:
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      kubernetes.io/ingress.class: "nginx"
-      cert-manager.io/cluster-issuer: "letsencrypt-production"
-    enabled: true
-    hosts:
-    - alertmanager.pvcy.customer.com
-    pathType: ImplementationSpecific
-    tls:
-    - hosts:
-      - alertmanager.pvcy.customer.com
-      secretName: alertmanager-cert
-commonLabels:
-  pvcy: "true"
-coreDns:
-  enabled: true
+defaultRules:
+  rules:
+    kubeControllerManager: false
+    kubeSchedulerAlerting: false
 grafana:
   additionalDataSources:
   - access: proxy
@@ -26,7 +12,7 @@ grafana:
     name: Loki
     type: loki
     url: http://loki.loki.svc.cluster.local:3100
-  adminPassword: GRAFANA_PASSWORD
+  adminPassword: abc123 # update
   enabled: true
   persistence:
     enabled: true
@@ -44,40 +30,22 @@ grafana:
       plugins: /var/lib/grafana/plugins
       provisioning: /etc/grafana/provisioning
     server:
-      domain: grafana.pvcy.customer.com
-      root_url: https://grafana.pvcy.customer.com/
-  ingress:
-    annotations:
-      kubernetes.io/tls-acme: "true"
-      kubernetes.io/ingress.class: "nginx"
-      cert-manager.io/cluster-issuer: "letsencrypt-production"
-    enabled: true
-    hosts:
-    - grafana.pvcy.customer.com
-    path: /
-    tls:
-    - hosts:
-      - grafana.pvcy.customer.com
-      secretName: grafana-cert
-kubeApiServer:
-  enabled: true
-kubeControllerManager:
-  enabled: true
-kubeDns:
-  enabled: false
-kubeEtcd:
-  enabled: true
-kubeProxy:
-  enabled: true
-kubeScheduler:
-  enabled: true
-kubeStateMetrics:
-  enabled: true
-kubelet:
-  enabled: true
-nodeExporter:
-  enabled: true
+      domain: grafana.pvcy.customer.com # update
+      root_url: https://grafana.pvcy.customer.com/ # update
 prometheus:
   enabled: true
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelector: {}
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          resources:
+            requests:
+              storage: 50Gi
+    ruleSelectorNilUsesHelmValues: false
+    ruleSelector: {}
 prometheusOperator:
   enabled: true
