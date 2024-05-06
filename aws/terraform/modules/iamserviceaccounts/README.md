@@ -35,9 +35,6 @@ The following variables must be set in order for this module to run correctly. S
 | `eks_cluster_name`          | the name of the EKS cluster                                   |                              |
 | `external_dns_sa.name`      | name of the external-dns ServiceAccount                       | external-dns                 |
 | `external_dns_sa.namespace` | namespace of the external-dns ServiceAccount                  | external-dns                 |
-| `oidc_provider_url`         | the URL of the OpenID Connect (OIDC) Issuer[^1]               |                              |
 | `postgres_sa.name`          | name of the postgres ServiceAccount                           | postgres                     |
 | `postgres_sa.namespace`     | namespace of the postgres ServiceAccount                      | pvcy                         |
 | `s3_bucket`                 | the name for S3 Bucket to be created                          |                              |
-
-[^1]: See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) for details on finding or creating your cluster's OIDC Issuer URL
