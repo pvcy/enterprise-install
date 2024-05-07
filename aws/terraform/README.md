@@ -32,7 +32,6 @@ The following values must be set when invoking this module from `main.tf`. See t
 
 - `dns_zone_name` = the subdomain for a new DNS zone, the module will attempt to create this DNS Zone in Route 53
 - `eks_cluster_name` = the name of an existing EKS cluster
-- `oidc_provider_url` = the URL of an existing OpenID Connect (OIDC) Provider ([see the AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) to enable an OIDC Provider for your cluster)
 - `s3_bucket` = the name for a new S3 Bucket to hold application database backups; the module will attempt to create this Bucket[^2]
 
 [^2]: Remember that S3 Bucket names must be globally unique

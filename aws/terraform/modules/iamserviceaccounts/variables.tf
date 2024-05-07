@@ -80,12 +80,6 @@ variable "external_dns_sa" {
   }
 }
 
-variable "oidc_provider_url" {
-  description = "URL of the OpenID Connect (OIDC) Provider for the EKS cluster"
-  type        = string
-}
-
-
 variable "postgres_sa" {
   description = "Name and namespace of the postgres ServiceAccount"
   type = object({

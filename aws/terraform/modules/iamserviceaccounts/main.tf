@@ -1,5 +1,15 @@
-data "aws_iam_openid_connect_provider" "this" {
-  url = var.oidc_provider_url
+data "aws_eks_cluster" "this" {
+  name = var.eks_cluster_name
+}
+
+data "tls_certificate" "oidc" {
+  url = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
+}
+
+resource "aws_iam_openid_connect_provider" "this" {
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = [data.tls_certificate.oidc.certificates[0].sha1_fingerprint]
+  url             = data.aws_eks_cluster.this.identity[0].oidc[0].issuer
 }
 
 resource "aws_route53_zone" "pvcy_zone" {
@@ -64,7 +74,7 @@ module "ebs_csi_irsa_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = data.aws_iam_openid_connect_provider.this.arn
+      provider_arn               = aws_iam_openid_connect_provider.this.arn
       namespace_service_accounts = ["${var.ebs_csi_controller_sa.namespace}:${var.ebs_csi_controller_sa.name}"]
     }
   }
@@ -81,7 +91,7 @@ module "efs_csi_irsa_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = data.aws_iam_openid_connect_provider.this.arn
+      provider_arn               = aws_iam_openid_connect_provider.this.arn
       namespace_service_accounts = ["${var.efs_csi_controller_sa.namespace}:${var.efs_csi_controller_sa.name}"]
     }
   }
@@ -98,7 +108,7 @@ module "vpc_cni_irsa_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = data.aws_iam_openid_connect_provider.this.arn
+      provider_arn               = aws_iam_openid_connect_provider.this.arn
       namespace_service_accounts = ["${var.aws_node_sa.namespace}:${var.aws_node_sa.name}"]
     }
   }
@@ -112,7 +122,7 @@ module "aws_lbc_irsa_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = data.aws_iam_openid_connect_provider.this.arn
+      provider_arn               = aws_iam_openid_connect_provider.this.arn
       namespace_service_accounts = ["${var.aws_lbc_sa.namespace}:${var.aws_lbc_sa.name}"]
     }
   }
@@ -127,7 +137,7 @@ module "cert_manager_irsa_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = data.aws_iam_openid_connect_provider.this.arn
+      provider_arn               = aws_iam_openid_connect_provider.this.arn
       namespace_service_accounts = ["${var.cert_manager_sa.namespace}:${var.cert_manager_sa.name}"]
     }
   }
@@ -142,7 +152,7 @@ module "external_dns_irsa_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = data.aws_iam_openid_connect_provider.this.arn
+      provider_arn               = aws_iam_openid_connect_provider.this.arn
       namespace_service_accounts = ["${var.external_dns_sa.namespace}:${var.external_dns_sa.name}"]
     }
   }
@@ -159,7 +169,7 @@ module "postgres_irsa_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = data.aws_iam_openid_connect_provider.this.arn
+      provider_arn               = aws_iam_openid_connect_provider.this.arn
       namespace_service_accounts = ["${var.postgres_sa.namespace}:${var.postgres_sa.name}"]
     }
   }
