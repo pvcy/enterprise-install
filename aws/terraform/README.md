@@ -13,14 +13,14 @@ See the documentation for the [AWS provider](https://registry.terraform.io/provi
 - `config_path` = the file path to your local Kubeconfig file, default is `~/.kube/config`
 - `config_context` = the name of the context for your EKS cluster[^1]
 
+[^1]: Run `kubectl config get-contexts` to see a list of all contexts in your kubeconfig file; if `config_context` is not set in `providers.tf`, it will default to your current Kubernetes context, as long as one is set in your kubeconfig file
+
 ### Required Tools
 
 These modules depend on other utilities for access to remote resources. The following are required:
 
 - [AWS CLI](https://aws.amazon.com/cli/), logged in to an account with access to the EKS cluster
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/), with a [properly configured kubeconfig file](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html), allowing access to the EKS cluster
-
-[^1]: Run `kubectl config get-contexts` to see a list of all contexts in your kubeconfig file; if `config_context` is not set in `providers.tf`, it will default to your current Kubernetes context, as long as one is set in your kubeconfig file
 
 ## IAMServiceAccounts
 
