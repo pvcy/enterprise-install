@@ -1,0 +1,10 @@
+clusterResourceNamespace: cert-manager
+ingressShim:
+  defaultIssuerGroup: cert-manager.io
+  defaultIssuerKind: ClusterIssuer
+  defaultIssuerName: letsencrypt-production
+installCRDs: false
+prometheus:
+  enabled: true
+  servicemonitor:
+    enabled: true

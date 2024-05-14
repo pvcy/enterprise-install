@@ -1,0 +1,6 @@
+clusterName: privacy-dynamics # update
+serviceAccount:
+  create: false # use the IRSA Service Account previously created
+  name: aws-load-balancer-controller
+serviceMonitor:
+  enabled: true # for Prometheus metric collection

@@ -1,0 +1,11 @@
+controller:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true # for Prometheus metric collection
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-dns-label-name: privacy-dynamics # update
+      service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: /healthz
+rbac:
+  create: true

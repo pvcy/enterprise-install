@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app: kube-prometheus-stack-alertmanager
+  name: prometheus-stack-kube-prom-alertmanager
+  namespace: prometheus
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: alertmanager.pvcy.customer.com # update
+    http:
+      paths:
+      - backend:
+          service:
+            name: prometheus-stack-kube-prom-alertmanager
+            port:
+              number: 9093
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - alertmanager.pvcy.customer.com # update
+    secretName: alertmanager-cert

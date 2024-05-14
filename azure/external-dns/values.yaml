@@ -1,0 +1,23 @@
+domainFilters:
+  - 'pvcy.customer.com' # update
+extraArgs:
+  - --azure-resource-group=privacy-dynamics-group # update
+  - --txt-prefix=externaldns- # update
+podLabels:
+  azure.workload.identity/use: "true"
+secretConfiguration:
+  enabled: true
+  mountPath: /etc/kubernetes
+  data:
+    azure.json: | # update
+    {
+      "tenantId": '111222333444',
+      "subscriptionId": '111222333555',
+      "resource-group": 'privacy-dynamics-group',
+      "useWorkloadIdentityExtension": true
+    }
+serviceAccount:
+  annotations:
+    azure.workload.identity/client-id: '111222333'
+serviceMonitor:
+  enabled: true # for Prometheus metric collection
